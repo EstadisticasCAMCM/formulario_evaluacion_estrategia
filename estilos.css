@@ -1,0 +1,407 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap'); */ /* Mantenemos comentada para evitar el error */
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 40px; /* Margen general para la vista de escritorio */
+  background-image:
+    linear-gradient(to top right, rgba(231, 210, 149, 0.5), rgba(166, 128, 45, 1)),
+    url(images/textura.png);
+  background-repeat: repeat; /* estilo mosaico */
+  background-attachment: fixed;
+  background-size: auto; /* mantiene el mosaico */
+  min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la vista */
+  display: flex; /* Usamos flexbox para centrar el contenido verticalmente si es necesario */
+  flex-direction: column; /* Coloca los elementos en una columna */
+  justify-content: center; /* Centra el contenido verticalmente */
+  align-items: center; /* Centra el contenido horizontalmente */
+}
+
+/* ENCABEZADO */
+header.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrar logo y título en lugar de space-between */
+  background: #ffffff;
+  max-width: 900px; /* Aumenta el max-width para que abarque más en PC */
+  width: 90%; /* Ancho flexible */
+  margin: 20px auto;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+  height: 60px;
+  margin-right: 15px; /* Espacio entre logo y título */
+}
+
+.titulo {
+  font-size: 24px;
+  color: #0b0a0c;
+  /* margin-left: 20px; */ /* Eliminado, ya no es necesario con justify-content: center */
+  /* flex-grow: 1; */ /* Eliminado, no es necesario con justify-content: center */
+  /* text-align: right; */ /* Eliminado */
+  text-align: center; /* Centrar el texto del título */
+}
+
+/* INSTRUCCIONES */
+.instrucciones {
+  max-width: 900px; /* Aumenta el max-width */
+  width: 90%;
+  margin: 20px auto;
+  font-size: 16px;
+  background: #611232;
+  color: #ffffff;
+  text-align: justify; /* Justificado para mejor lectura */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  line-height: 1.5; /* Espaciado entre líneas */
+}
+
+/* FORMULARIO */
+.formulario {
+  background: #ffffff;
+  padding: 30px; /* Aumentar padding para PC */
+  max-width: 900px; /* Aumentar max-width */
+  width: 90%; /* Ancho flexible */
+  margin: auto;
+  border-radius: 10px; /* Más redondeado */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+  box-sizing: border-box; /* Asegura que padding y border no aumenten el ancho */
+}
+
+/* ETIQUETAS Y BOTONES */
+label {
+  display: block; /* Asegura que los labels de los inputs generales estén en su propia línea */
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #0b0a0c;
+}
+
+/* Esta regla ocultará los labels de los radio buttons en la versión de PC */
+/* Es crucial que el label tenga el número dentro en el HTML para que esto funcione correctamente en PC y móvil */
+.fila > div:not(.aspecto) label {
+    display: none;
+}
+
+button {
+  background-color: #611232;
+  color: white;
+  padding: 15px 30px; /* Aumentar padding para botones */
+  border: none;
+  border-radius: 5px; /* Más redondeado */
+  cursor: pointer;
+  font-size: 17px; /* Fuente más grande */
+  transition: background-color 0.3s ease;
+  display: block; /* Para que ocupe todo el ancho y se pueda centrar con margin: auto */
+  margin: 20px auto 0; /* Centra el botón */
+}
+
+button:hover {
+  background-color: #7a1640; /* Color de hover más oscuro y consistente */
+}
+
+/* RADIO GROUP - Parece que esta sección es para radios fuera de la tabla, la mantenemos */
+.radio-group {
+  display: flex;
+  justify-content: space-between; /* Considera si quieres justify-content: flex-start y margin-right en labels si no hay espacio entre todos */
+  margin: 10px 0 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  font-weight: normal;
+  margin-right: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.radio-group label:hover {
+  background: #e0e0e0;
+}
+
+/* TABLA DE EVALUACIÓN */
+.tabla-evaluacion {
+  display: grid;
+  grid-template-columns: 1.6fr repeat(5, 0.6fr);
+  gap: 8px 5px;
+  margin-bottom: 20px;
+}
+
+.fila {
+  display: contents; /* Propiedad para grid, mantiene las celdas en la misma línea */
+}
+
+.fila:not(.encabezado) .aspecto {
+  background-color: #f9f9f9;
+  border-radius: 6px 0 0 6px;
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.fila:not(.encabezado) div:not(.aspecto) {
+  padding: 12px 0;
+  text-align: center;
+}
+
+.fila.encabezado div {
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* RADIO BUTTONS (en tabla de evaluación) */
+input[type="radio"] {
+  transform: scale(1.3); /* Mantener tamaño en PC */
+  vertical-align: middle;
+  margin: 0 auto; /* Centrar */
+  display: block; /* Asegura que el radio ocupe su propio espacio */
+}
+
+
+/* TEXTO */
+.instruccion-evaluacion {
+  font-size: 16px;
+  margin-bottom: 35px;
+  text-align: center;
+  font-weight: bold; /* Hacer la instrucción de evaluación más notoria */
+}
+
+/* TEXTAREA */
+textarea {
+  width: calc(100% - 22px); /* Ajuste para padding */
+  padding: 10px;
+  font-size: 16px; /* Tamaño de fuente más estándar */
+  border-radius: 5px; /* Consistente con otros inputs */
+  border: 1px solid #ccc;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+/* SELECTS */
+.bloque-seleccion {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 900px; /* Aumenta el max-width */
+  width: 90%; /* Ancho flexible */
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+.bloque-seleccion label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.bloque-seleccion select {
+  width: calc(100% - 22px); /* Ajuste para padding */
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+  /* Estilo para el ícono de la flecha del select */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23611232%22%20d%3D%22M208.5%2087.5l-80%2080a12%2012%200%200%201-17%200l-80-80a12%2012%200%200%201%2017-17l71.5%2071.5l71.5-71.5a12%2012%200%200%201%2017%2017z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px; /* Espacio para el ícono */
+}
+
+.bloque-evaluacion {
+  display: none; /* Oculto por defecto, se muestra con JS */
+}
+
+.oculto {
+  display: none !important; /* !important para asegurar que oculte siempre */
+}
+
+/* --- Media Query para Móviles --- */
+@media screen and (max-width: 768px) {
+    /* Reglas generales para móvil, ajustes de márgenes y tamaños */
+    body {
+        margin: 0; /* Sin margen en body para usar el padding del formulario */
+        padding: 20px 0; /* Un poco de padding arriba y abajo si el contenido no es full height */
+    }
+
+    header.encabezado {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+        margin-bottom: 15px; /* Ajuste de margen */
+        max-width: 100%; /* Ocupa todo el ancho */
+        width: 100%;
+        border-radius: 0; /* Quitar redondeo en móvil para full width */
+    }
+
+    .logo {
+        height: 50px;
+        margin-bottom: 10px;
+        margin-right: 0;
+    }
+
+    .titulo {
+        font-size: 20px;
+    }
+
+    .instrucciones {
+        font-size: 14px;
+        padding: 10px 15px; /* <--- Ajuste de padding: padding horizontal */
+        margin-bottom: 15px;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 0;
+        text-align: justify; /* <--- CAMBIO CLAVE: También justificado en móvil */
+        box-sizing: border-box; /* <--- Asegurarse de que esté aquí también */
+    }
+
+    .formulario {
+        padding: 15px;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none; /* Sin sombra para un look más limpio en móvil */
+    }
+
+    textarea,
+    .bloque-seleccion select {
+        width: 100%; /* Ajuste para que ocupen el 100% del padre */
+    }
+
+    button {
+        padding: 12px 25px;
+        font-size: 18px;
+    }
+
+    /* --- AJUSTES CLAVE PARA LA TABLA DE EVALUACIÓN EN MÓVIL --- */
+
+    /* Centrar los títulos de los bloques (INSTRUCTOR, METODOLOGÍA, IMPACTO) */
+    .bloque-evaluacion label { /* Asegúrate de que esta etiqueta sea el título del bloque */
+        text-align: center;
+        display: block; /* Para que text-align: center funcione */
+        margin-bottom: 15px; /* Espacio debajo del título */
+        font-size: 1.2em; /* Hazlo un poco más grande para destacar */
+    }
+
+    .tabla-evaluacion {
+        display: block; /* La tabla ya no es una rejilla principal en móvil */
+        margin-bottom: 20px;
+    }
+
+    /* Ocultar la fila de encabezados (1, 2, 3, 4, 5) en móvil */
+    .fila.encabezado {
+        display: none;
+    }
+
+    .fila {
+        display: block; /* Cada fila de pregunta es un bloque completo */
+        margin-bottom: 20px; /* Espacio entre cada pregunta */
+        border: 1px solid #ddd; /* Borde sutil para separar preguntas */
+        border-radius: 8px;
+        padding: 10px; /* Padding interno para el contenido de la fila */
+        background-color: #fff;
+    }
+
+    .fila .aspecto {
+        /* El texto de la pregunta ("Interacción con el grupo") */
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px; /* Espacio entre la pregunta y los radios */
+        text-align: left;
+        padding: 0;
+        background-color: transparent;
+        border-radius: 0;
+    }
+
+    /* Contenedor de las opciones de radio (div que contiene el input y el label) */
+    .fila > div:not(.aspecto) {
+        /* Usamos flexbox para alinear el input y el label si es necesario, y para centrar el contenido */
+        display: inline-flex; /* Los radios se alinean en una fila horizontal */
+        align-items: center; /* Centrar verticalmente radio y número */
+        justify-content: center; /* Centrar horizontalmente el contenido de cada "botón" */
+        width: calc(20% - 8px); /* 5 radios, cada uno 20% de ancho menos un poco de margen */
+        margin: 4px; /* Margen entre los "botones" de radio */
+        box-sizing: border-box; /* Incluye padding y border en el width */
+        border: 1px solid #ccc; /* Borde para cada opción numérica */
+        border-radius: 5px;
+        padding: 8px 5px; /* Padding interno del "botón" */
+        position: relative; /* Necesario para posicionar el input de radio oculto */
+        cursor: pointer;
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        text-align: center; /* Alineación del texto/número */
+    }
+
+    /* Mostrar el label (el número) dentro de la celda de radio en móvil */
+    .fila > div:not(.aspecto) label {
+        display: block; /* Muestra el label (el número) */
+        font-weight: bold;
+        color: #333; /* Color inicial del número */
+        font-size: 1.1em;
+        line-height: 1;
+        width: 100%; /* Asegura que el label ocupe todo el espacio de texto dentro de su contenedor */
+        text-align: center; /* Centrar el número si es un solo dígito */
+    }
+
+    /* Ocultar el input de radio visualmente, ya que el contenedor padre es clicable */
+    .fila > div:not(.aspecto) input[type="radio"] {
+        opacity: 0; /* Oculta el radio button */
+        position: absolute; /* Para que no ocupe espacio visual */
+        pointer-events: none; /* No interactuable directamente con el radio */
+        width: 100%; /* Ocupa el 100% del contenedor padre para que el clic funcione en toda la celda */
+        height: 100%;
+        top: 0;
+        left: 0;
+        margin: 0; /* Reiniciar márgenes */
+        /* overflow: hidden; */ /* No necesario si tiene 0x0 y pointer-events: none */
+        /* clip: rect(0,0,0,0); */ /* No necesario */
+        z-index: 1; /* Asegura que el input está sobre el label para la interacción */
+        cursor: pointer; /* Indicar clicable, aunque esté oculto */
+    }
+
+    /* Estilos del contenedor cuando el radio interno está checked */
+    .fila > div:not(.aspecto):has(input[type="radio"]:checked) {
+        background-color: #611232; /* Color de fondo del contenedor seleccionado */
+        border-color: #611232;
+    }
+
+    /* Cambiar el color del label (el número) cuando la opción está seleccionada */
+    .fila > div:not(.aspecto):has(input[type="radio"]:checked) label {
+        color: white; /* Color del texto del número cuando está seleccionado */
+    }
+
+
+    /* Si la pantalla es muy pequeña, los radios se apilan en 2 columnas */
+    @media screen and (max-width: 480px) {
+        .fila > div:not(.aspecto) {
+            width: calc(50% - 8px); /* 2 radios por fila */
+        }
+    }
+
+    /* Asegúrate de que esta clase no esté en tu HTML si no la necesitas */
+    .pregunta-movil {
+        display: none !important;
+    }
+}

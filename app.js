@@ -1,0 +1,251 @@
+// app.js
+
+// 1. Configuración de Firebase
+// *** REEMPLAZA LOS VALORES DE ESTE OBJETO CON LOS QUE OBTUVISTE DE LA CONSOLA DE FIREBASE ***
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROJECT_ID.firebaseapp.com",
+  projectId: "TU_PROJECT_ID",
+  storageBucket: "TU_PROJECT_ID.appspot.com",
+  messagingSenderId: "TU_MESSAGING_SENDER_ID",
+  appId: "TU_APP_ID"
+};
+
+// Inicializa Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Obtén una referencia a Firestore
+const db = firebase.firestore();
+
+// --- Función para guardar los datos en Firestore ---
+async function guardarDatosFormulario(datos) {
+    try {
+        const docRef = await db.collection("evaluaciones").add({
+            ...datos,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        console.log("Documento escrito con ID: ", docRef.id);
+        return true;
+    } catch (e) {
+        console.error("Error añadiendo documento: ", e);
+        alert("Hubo un error al enviar tu evaluación. Por favor, revisa la consola para más detalles.");
+        return false;
+    }
+}
+
+// --- Lógica principal del DOM y manejo del formulario ---
+document.addEventListener('DOMContentLoaded', () => {
+    const bloques = Array.from(document.querySelectorAll('.bloque-evaluacion'));
+    const btnSiguiente = document.getElementById('btn-siguiente');
+    const bloqueFinal = document.getElementById('bloque-final');
+    const bloque1 = document.getElementById('bloque-1');
+    const bloqueSeleccion = document.querySelector('.bloque-seleccion');
+
+    const formulario = document.getElementById('evaluacion-form');
+    const mensajeConfirmacion = document.getElementById('mensaje-confirmacion');
+
+    const modalidadSelect = document.getElementById('modalidad');
+    const turnoSelect = document.getElementById('turno');
+    const tallerSelect = document.getElementById('taller');
+    const bloqueTurno = document.getElementById('bloque-turno');
+    const bloqueTaller = document.getElementById('bloque-taller');
+
+    let indiceActual = 0;
+
+    const talleres = {
+        presencial: {
+            matutino: [
+                { clave: "TA12", nombre: "Gestión y liderazgo en el proceso de mejora educativa en la NEM." },
+                { clave: "TA18", nombre: "La Educación Física y el Juego." }
+            ],
+            vespertino: [
+                { clave: "TA12", nombre: "Gestión y liderazgo en el proceso de mejora educativa en la NEM." },
+                { clave: "TA18", nombre: "La Educación Física y el Juego." }
+            ]
+        },
+        distancia: {
+            matutino: [
+                { clave: "TA14", nombre: "Tik Tokero Pedagógico" },
+                { clave: "TA15", nombre: "Estrategias para el uso de la realidad virtual y aumentada en el aula" },
+                { clave: "TA16", nombre: "Plataformas Virtuales de Aprendizaje-Práctica con Google Classroom" },
+                { clave: "TA17", nombre: "Jugando con el gato scratch" },
+                { clave: "TA19", nombre: "Atmosferas Creativas. Movilizando Saberes para la Mejora de los Aprendizajes" },
+                { clave: "TA20", nombre: "El docente con conocimiento legal" },
+                { clave: "TA22", nombre: "Herramientas Digitales para un Aprendizaje Colaborativo" },
+                { clave: "TA23", nombre: "Gestión y regulación de emociones para docentes de Educación Básica" }
+            ],
+            vespertino: [
+                { clave: "TA14", nombre: "Tik Tokero Pedagógico" },
+                { clave: "TA15", nombre: "Estrategias para el uso de la realidad virtual y aumentada en el aula" },
+                { clave: "TA16", nombre: "Plataformas Virtuales de Aprendizaje-Práctica con Google Classroom" },
+                { clave: "TA17", nombre: "Jugando con el gato scratch" },
+                { clave: "TA19", nombre: "Atmosferas Creativas. Movilizando Saberes para la Mejora de los Aprendizajes" },
+                { clave: "TA20", nombre: "El docente con conocimiento legal" },
+                { clave: "TA22", nombre: "Herramientas Digitales para un Aprendizaje Colaborativo" },
+                { clave: "TA24", nombre: "La inteligencia emocional dentro y fuera del aula" }
+            ]
+        }
+    };
+
+    function mostrarBloque(indice) {
+        bloques.forEach((bloque, i) => {
+            bloque.style.display = 'none';
+        });
+        if (bloques[indice]) {
+            bloques[indice].style.display = 'block';
+        }
+        btnSiguiente.style.display = 'none';
+        if (bloques[indice] && verificarRespuestas(bloques[indice])) {
+             btnSiguiente.style.display = 'inline-block';
+        }
+    }
+
+    function verificarRespuestas(bloque) {
+        const allInputs = bloque.querySelectorAll('input[type="radio"]');
+        const entradas = Array.from(allInputs).filter(input => input.tagName === 'INPUT' && input.type === 'radio' && input.name);
+        const nombres = new Set();
+        entradas.forEach(input => nombres.add(input.name));
+
+        const contestadas = new Set();
+        entradas.forEach(input => {
+            if (input.checked) {
+                contestadas.add(input.name);
+            }
+        });
+        return contestadas.size === nombres.size;
+    }
+
+    modalidadSelect.addEventListener('change', () => {
+        const modalidad = modalidadSelect.value;
+        turnoSelect.value = "";
+        tallerSelect.value = "";
+        bloqueTaller.classList.add('oculto');
+        bloque1.style.display = 'none';
+
+        if (modalidad) {
+            bloqueTurno.classList.remove('oculto');
+            turnoSelect.focus();
+        } else {
+            bloqueTurno.classList.add('oculto');
+        }
+        btnSiguiente.style.display = 'none';
+    });
+
+    turnoSelect.addEventListener('change', () => {
+        const modalidad = modalidadSelect.value;
+        const turno = turnoSelect.value;
+        tallerSelect.value = "";
+        bloque1.style.display = 'none';
+
+        if (modalidad && turno) {
+            const opciones = talleres[modalidad][turno] || [];
+            tallerSelect.innerHTML = '<option value="">Seleccione un taller</option>';
+            opciones.forEach(taller => {
+                const option = document.createElement('option');
+                option.value = taller.clave;
+                option.textContent = taller.nombre;
+                tallerSelect.appendChild(option);
+            });
+
+            bloqueTaller.classList.remove('oculto');
+            tallerSelect.focus();
+        } else {
+            bloqueTaller.classList.add('oculto');
+        }
+        btnSiguiente.style.display = 'none';
+    });
+
+    tallerSelect.addEventListener('change', () => {
+        if (tallerSelect.value) {
+            bloqueSeleccion.style.display = 'none';
+            bloque1.style.display = 'block';
+            indiceActual = 0;
+            mostrarBloque(indiceActual);
+        } else {
+            bloque1.style.display = 'none';
+            btnSiguiente.style.display = 'none';
+        }
+    });
+
+    // Delegación de eventos para los radio buttons
+    document.getElementById('evaluacion-form').addEventListener('input', (event) => {
+        if (event.target.tagName === 'INPUT' && event.target.type === 'radio') {
+            const bloqueActual = bloques[indiceActual];
+            if (verificarRespuestas(bloqueActual)) {
+                btnSiguiente.style.display = 'inline-block';
+                btnSiguiente.focus();
+            } else {
+                btnSiguiente.style.display = 'none';
+            }
+        }
+    });
+
+    btnSiguiente.addEventListener('click', () => {
+        const bloqueActual = bloques[indiceActual];
+        if (!verificarRespuestas(bloqueActual)) {
+            alert('Por favor, conteste todas las preguntas antes de avanzar.');
+            return;
+        }
+
+        indiceActual++;
+        if (indiceActual < bloques.length) {
+            mostrarBloque(indiceActual);
+        } else {
+            bloque1.style.display = 'none';
+            btnSiguiente.style.display = 'none';
+            bloqueFinal.style.display = 'block';
+        }
+    });
+
+    // *** LÓGICA DE ENVÍO DE DATOS A FIREBASE AQUÍ ***
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // 1. Recolectar todos los datos del formulario
+        const datosFormulario = {};
+
+        // Recolectar valores de los selects
+        datosFormulario.modalidad = modalidadSelect.value;
+        datosFormulario.turno = turnoSelect.value;
+        datosFormulario.taller = tallerSelect.value;
+
+        // Recolectar valores de los radio buttons
+        // Este es el paso más crucial, asegurando que los "name" coincidan
+        const radioGroups = [
+            'interaccion-grupo', 'dominio-contenido', 'claridad-tema',
+            'presentacion-propositos', 'cumplimiento-programa', 'resolver-dudas',
+            'estrategias-pedagogicas', 'conduccion-estrategia', 'evaluacion-estrategia',
+            'recursos-utilizados', 'participacion-grupal', 'relevancia-informacion',
+            'expectativas-cumplidas', 'conocimiento-incrementado', 'actitudes-modificadas'
+        ];
+        
+        radioGroups.forEach(name => {
+            const checkedRadio = document.querySelector(`input[name="${name}"]:checked`);
+            datosFormulario[name.replace(/-/g, '')] = checkedRadio ? checkedRadio.value : null;
+        });
+        
+        // Recolectar valores de los textareas
+        datosFormulario.comentario1 = document.getElementById('comentario1').value;
+        datosFormulario.comentario2 = document.getElementById('comentario2').value;
+        datosFormulario.comentario3 = document.getElementById('comentario3').value;
+
+        console.log("Datos a enviar:", datosFormulario); // Para depuración
+
+        // 2. Enviar los datos a Firebase
+        const exito = await guardarDatosFormulario(datosFormulario);
+
+        if (exito) {
+            formulario.style.display = 'none';
+            mensajeConfirmacion.style.display = 'block';
+        } else {
+            // El error ya se maneja dentro de guardarDatosFormulario
+        }
+    });
+
+    // Oculta el bloque de evaluación y el botón siguiente al cargar la página
+    bloque1.style.display = 'none';
+    btnSiguiente.style.display = 'none';
+});
+
+// Nota: La función cerrarPagina() está en tu HTML, lo cual está bien.
+// Si deseas tener todo en app.js, podrías moverla aquí.

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluación de la Estrategia</title>
+  <link rel="icon" href="data:,">
+  <link rel="icon" href="images/icon.png" type="image/png">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="encabezado">
+  <img src="images/logo.png" alt="Logo" class="logo">
+  <h1 class="titulo">Evaluación de la Estrategia</h1>
+</header>
+
+<p class="instrucciones">
+  Con el propósito de conocer su opinión en relación con las estrategias de actualización,
+  capacitación y superación profesional, solicitamos su colaboración para contestar el presente
+  instrumento, el cual nos permitirá tomar acciones para la mejora continua.
+</p>
+
+<div class="formulario">
+  <form id="evaluacion-form">
+  <div id="bloque-seleccion" class="bloque-seleccion">
+  <label for="modalidad">Modalidad:</label>
+  <select id="modalidad" required>
+    <option value="">Seleccione una modalidad</option>
+    <option value="presencial">Presencial</option>
+    <option value="distancia">A Distancia</option>
+  </select>
+
+  <div id="bloque-turno" class="oculto">
+    <label for="turno">Turno:</label>
+    <select id="turno" required>
+      <option value="">Seleccione un turno</option>
+      <option value="matutino">Matutino</option>
+      <option value="vespertino">Vespertino</option>
+    </select>
+  </div>
+
+  <div id="bloque-taller" class="oculto">
+    <label for="taller">Taller:</label>
+    <select id="taller" required>
+      <option value="">Seleccione un taller</option>
+    </select>
+  </div>
+</div>
+
+    <div id="bloque-1" style="display: none;">
+      <p class="instruccion-evaluacion">
+        Califica del 1 al 5, donde 1 es pésimo y 5 excelente, los siguientes aspectos:
+      </p>
+
+      <!-- Bloque 1: INSTRUCTOR -->
+      <div class="bloque-evaluacion" data-bloque="1">
+        <label>INSTRUCTOR</label>
+        <div class="tabla-evaluacion">
+          <div class="fila encabezado">
+            <div class="aspecto"></div>
+            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Interacción con el grupo:</div>
+            <div><input type="radio" name="interaccion-grupo" value="1" id="interaccion-grupo-1" required>
+            <label for="interaccion-grupo-1">1</label></div>
+            <div><input type="radio" name="interaccion-grupo" value="2" id="interaccion-grupo-2">
+            <label for="interaccion-grupo-2">2</label></div>
+            <div><input type="radio" name="interaccion-grupo" value="3" id="interaccion-grupo-3">
+            <label for="interaccion-grupo-3">3</label></div>
+            <div><input type="radio" name="interaccion-grupo" value="4" id="interaccion-grupo-4">
+            <label for="interaccion-grupo-4">4</label></div>
+            <div><input type="radio" name="interaccion-grupo" value="5" id="interaccion-grupo-5">
+            <label for="interaccion-grupo-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Dominio de los contenidos:</div>
+            <div><input type="radio" name="dominio-contenido" value="1" id="dominio-contenido-1" required>
+            <label for="dominio-contenido-1">1</label></div>
+            <div><input type="radio" name="dominio-contenido" value="2" id="dominio-contenido-2">
+            <label for="dominio-contenido-2">2</label></div>
+            <div><input type="radio" name="dominio-contenido" value="3" id="dominio-contenido-3">
+            <label for="dominio-contenido-3">3</label></div>
+            <div><input type="radio" name="dominio-contenido" value="4" id="dominio-contenido-4">
+            <label for="dominio-contenido-4">4</label></div>
+            <div><input type="radio" name="dominio-contenido" value="5" id="dominio-contenido-5">
+            <label for="dominio-contenido-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Claridad en la exposición de los temas:</div>
+            <div><input type="radio" name="claridad-tema" value="1" id="claridad-tema-1" required>
+            <label for="claridad-tema-1">1</label></div>
+            <div><input type="radio" name="claridad-tema" value="2" id="claridad-tema-2">
+            <label for="claridad-tema-2">2</label></div>
+            <div><input type="radio" name="claridad-tema" value="3" id="claridad-tema-3">
+            <label for="claridad-tema-3">3</label></div>
+            <div><input type="radio" name="claridad-tema" value="4" id="claridad-tema-4">
+            <label for="claridad-tema-4">4</label></div>
+            <div><input type="radio" name="claridad-tema" value="5" id="claridad-tema-5">
+            <label for="claridad-tema-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Presentación de los propósitos:</div>
+            <div><input type="radio" name="presentacion-propositos" value="1" id="presentacion-propositos-1" required>
+            <label for="presentacion-propositos-1">1</label></div>
+            <div><input type="radio" name="presentacion-propositos" value="2" id="presentacion-propositos-2">
+            <label for="presentacion-propositos-2">2</label></div>
+            <div><input type="radio" name="presentacion-propositos" value="3" id="presentacion-propositos-3">
+            <label for="presentacion-propositos-3">3</label></div>
+            <div><input type="radio" name="presentacion-propositos" value="4" id="presentacion-propositos-4">
+            <label for="presentacion-propositos-4">4</label></div>
+            <div><input type="radio" name="presentacion-propositos" value="5" id="presentacion-propositos-5">
+            <label for="presentacion-propositos-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Cumplimiento del programa:</div>
+            <div><input type="radio" name="cumplimiento-programa" value="1" id="cumplimiento-programa-1" required>
+            <label for="cumplimiento-programa-1">1</label></div>
+            <div><input type="radio" name="cumplimiento-programa" value="2" id="cumplimiento-programa-2">
+            <label for="cumplimiento-programa-2">2</label></div>
+            <div><input type="radio" name="cumplimiento-programa" value="3" id="cumplimiento-programa-3">
+            <label for="cumplimiento-programa-3">3</label></div>
+            <div><input type="radio" name="cumplimiento-programa" value="4" id="cumplimiento-programa-4">
+            <label for="cumplimiento-programa-4">4</label></div>
+            <div><input type="radio" name="cumplimiento-programa" value="5" id="cumplimiento-programa-5">
+            <label for="cumplimiento-programa-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Capacidad para resolver dudas:</div>
+            <div><input type="radio" name="resolver-dudas" value="1" id="resolver-dudas-1" required>
+            <label for="resolver-dudas-1">1</label></div>
+            <div><input type="radio" name="resolver-dudas" value="2" id="resolver-dudas-2">
+            <label for="resolver-dudas-2">2</label></div>
+            <div><input type="radio" name="resolver-dudas" value="3" id="resolver-dudas-3">
+            <label for="resolver-dudas-3">3</label></div>
+            <div><input type="radio" name="resolver-dudas" value="4" id="resolver-dudas-4">
+            <label for="resolver-dudas-4">4</label></div>
+            <div><input type="radio" name="resolver-dudas" value="5" id="resolver-dudas-5">
+            <label for="resolver-dudas-5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque 2: METODOLOGÍA -->
+      <div class="bloque-evaluacion" data-bloque="2" style="display: none;">
+        <label>METODOLOGÍA</label>
+        <div class="tabla-evaluacion">
+          <div class="fila encabezado">
+            <div class="aspecto"></div>
+            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Utilización de estrategias pedagógicas:</div>
+            <div><input type="radio" name="estrategias-pedagogicas" value="1" id="estrategias-pedagogicas-1" required>
+            <label for="estrategias-pedagogicas-1">1</label></div>
+            <div><input type="radio" name="estrategias-pedagogicas" value="2" id="estrategias-pedagogicas-2">
+            <label for="estrategias-pedagogicas-2">2</label></div>
+            <div><input type="radio" name="estrategias-pedagogicas" value="3" id="estrategias-pedagogicas-3">
+            <label for="estrategias-pedagogicas-3">3</label></div>
+            <div><input type="radio" name="estrategias-pedagogicas" value="4" id="estrategias-pedagogicas-4">
+            <label for="estrategias-pedagogicas-4">4</label></div>
+            <div><input type="radio" name="estrategias-pedagogicas" value="5" id="estrategias-pedagogicas-5">
+            <label for="estrategias-pedagogicas-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Conducción de la estrategia:</div>
+            <div><input type="radio" name="conduccion-estrategia" value="1" id="conduccion-estrategia-1" required>
+            <label for="conduccion-estrategia-1">1</label></div>
+            <div><input type="radio" name="conduccion-estrategia" value="2" id="conduccion-estrategia-2">
+            <label for="conduccion-estrategia-2">2</label></div>
+            <div><input type="radio" name="conduccion-estrategia" value="3" id="conduccion-estrategia-3">
+            <label for="conduccion-estrategia-3">3</label></div>
+            <div><input type="radio" name="conduccion-estrategia" value="4" id="conduccion-estrategia-4">
+            <label for="conduccion-estrategia-4">4</label></div>
+            <div><input type="radio" name="conduccion-estrategia" value="5" id="conduccion-estrategia-5">
+            <label for="conduccion-estrategia-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Evaluación de estrategia:</div>
+            <div><input type="radio" name="evaluacion-estrategia" value="1" id="evaluacion-estrategia-1" required>
+            <label for="evaluacion-estrategia-1">1</label></div>
+            <div><input type="radio" name="evaluacion-estrategia" value="2" id="evaluacion-estrategia-2">
+            <label for="evaluacion-estrategia-2">2</label></div>
+            <div><input type="radio" name="evaluacion-estrategia" value="3" id="evaluacion-estrategia-3">
+            <label for="evaluacion-estrategia-3">3</label></div>
+            <div><input type="radio" name="evaluacion-estrategia" value="4" id="evaluacion-estrategia-4">
+            <label for="evaluacion-estrategia-4">4</label></div>
+            <div><input type="radio" name="evaluacion-estrategia" value="5" id="evaluacion-estrategia-5">
+            <label for="evaluacion-estrategia-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Calidad de los recursos utilizados:</div>
+            <div><input type="radio" name="recursos-utilizados" value="1" id="recursos-utilizados-1" required>
+            <label for="recursos-utilizados-1">1</label></div>
+            <div><input type="radio" name="recursos-utilizados" value="2" id="recursos-utilizados-2">
+            <label for="recursos-utilizados-2">2</label></div>
+            <div><input type="radio" name="recursos-utilizados" value="3" id="recursos-utilizados-3">
+            <label for="recursos-utilizados-3">3</label></div>
+            <div><input type="radio" name="recursos-utilizados" value="4" id="recursos-utilizados-4">
+            <label for="recursos-utilizados-4">4</label></div>
+            <div><input type="radio" name="recursos-utilizados" value="5" id="recursos-utilizados-5">
+            <label for="recursos-utilizados-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Oportunidad de participación grupal:</div>
+            <div><input type="radio" name="participacion-grupal" value="1" id="participacion-grupal-1" required>
+            <label for="participacion-grupal-1">1</label></div>
+            <div><input type="radio" name="participacion-grupal" value="2" id="participacion-grupal-2">
+            <label for="participacion-grupal-2">2</label></div>
+            <div><input type="radio" name="participacion-grupal" value="3" id="participacion-grupal-3">
+            <label for="participacion-grupal-3">3</label></div>
+            <div><input type="radio" name="participacion-grupal" value="4" id="participacion-grupal-4">
+            <label for="participacion-grupal-4">4</label></div>
+            <div><input type="radio" name="participacion-grupal" value="5" id="participacion-grupal-5">
+            <label for="participacion-grupal-5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bloque 3: IMPACTO -->
+      <div class="bloque-evaluacion" data-bloque="3" style="display: none;">
+        <label>IMPACTO</label>
+        <div class="tabla-evaluacion">
+          <div class="fila encabezado">
+            <div class="aspecto"></div>
+            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Relevancia para su información:</div>
+            <div><input type="radio" name="relevancia-informacion" value="1" id="relevancia-informacion-1" required>
+            <label for="relevancia-informacion-1">1</label></div>
+            <div><input type="radio" name="relevancia-informacion" value="2" id="relevancia-informacion-2">
+            <label for="relevancia-informacion-2">2</label></div>
+            <div><input type="radio" name="relevancia-informacion" value="3" id="relevancia-informacion-3">
+            <label for="relevancia-informacion-3">3</label></div>
+            <div><input type="radio" name="relevancia-informacion" value="4" id="relevancia-informacion-4">
+            <label for="relevancia-informacion-4">4</label></div>
+            <div><input type="radio" name="relevancia-informacion" value="5" id="relevancia-informacion-5">
+            <label for="relevancia-informacion-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Se cumplieron las expectativas:</div>
+            <div><input type="radio" name="expectativas-cumplidas" value="1" id="expectativas-cumplidas-1" required>
+            <label for="expectativas-cumplidas-1">1</label></div>
+            <div><input type="radio" name="expectativas-cumplidas" value="2" id="expectativas-cumplidas-2">
+            <label for="expectativas-cumplidas-2">2</label></div>
+            <div><input type="radio" name="expectativas-cumplidas" value="3" id="expectativas-cumplidas-3">
+            <label for="expectativas-cumplidas-3">3</label></div>
+            <div><input type="radio" name="expectativas-cumplidas" value="4" id="expectativas-cumplidas-4">
+            <label for="expectativas-cumplidas-4">4</label></div>
+            <div><input type="radio" name="expectativas-cumplidas" value="5" id="expectativas-cumplidas-5">
+            <label for="expectativas-cumplidas-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Incrementó conocimiento o habilidades:</div>
+            <div><input type="radio" name="conocimiento-incrementado" value="1" id="conocimiento-incrementado-1" required>
+            <label for="conocimiento-incrementado-1">1</label></div>
+            <div><input type="radio" name="conocimiento-incrementado" value="2" id="conocimiento-incrementado-2">
+            <label for="conocimiento-incrementado-2">2</label></div>
+            <div><input type="radio" name="conocimiento-incrementado" value="3" id="conocimiento-incrementado-3">
+            <label for="conocimiento-incrementado-3">3</label></div>
+            <div><input type="radio" name="conocimiento-incrementado" value="4" id="conocimiento-incrementado-4">
+            <label for="conocimiento-incrementado-4">4</label></div>
+            <div><input type="radio" name="conocimiento-incrementado" value="5" id="conocimiento-incrementado-5">
+            <label for="conocimiento-incrementado-5">5</label></div>
+          </div>
+
+          <div class="fila">
+            <div class="aspecto">Modificó actitudes profesionales:</div>
+            <div><input type="radio" name="actitudes-modificadas" value="1" id="actitudes-modificadas-1" required>
+            <label for="actitudes-modificadas-1">1</label></div>
+            <div><input type="radio" name="actitudes-modificadas" value="2" id="actitudes-modificadas-2">
+            <label for="actitudes-modificadas-2">2</label></div>
+            <div><input type="radio" name="actitudes-modificadas" value="3" id="actitudes-modificadas-3">
+            <label for="actitudes-modificadas-3">3</label></div>
+            <div><input type="radio" name="actitudes-modificadas" value="4" id="actitudes-modificadas-4">
+            <label for="actitudes-modificadas-4">4</label></div>
+            <div><input type="radio" name="actitudes-modificadas" value="5" id="actitudes-modificadas-5">
+            <label for="actitudes-modificadas-5">5</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón para avanzar -->
+      <div style="text-align: center; margin-top: 20px;">
+        <button type="button" id="btn-siguiente" style="display: none;">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Preguntas abiertas -->
+    <div id="bloque-final" style="display: none;">
+      <p class="instrucciones">
+        Conteste las siguientes preguntas que nos ayudarán a tomar acciones para la mejora continua:
+      </p>
+
+      <label for="comentario1">¿Qué propone para mejorar la estrategia?</label>
+      <textarea id="comentario1" name="comentario1" rows="5" placeholder="Escriba sus comentarios aquí..."></textarea>
+
+      <label for="comentario2">¿Qué temas le interesaría que se abordaran o profundizaran?</label>
+      <textarea id="comentario2" name="comentario2" rows="5" placeholder="Escriba sus comentarios aquí..."></textarea>
+
+      <label for="comentario3">Otras sugerencias o comentarios:</label>
+      <textarea id="comentario3" name="comentario3" rows="5" placeholder="Escriba sus comentarios aquí..."></textarea>
+
+      <button type="submit">Enviar Evaluación</button>
+    </div>
+  </form>
+
+  <!-- Mensaje final -->
+  <div id="mensaje-confirmacion" style="display: none; text-align: center; margin-top: 20px;">
+    <h2>¡Gracias! Tu evaluación ha sido enviada con éxito.</h2>
+    <button onclick="cerrarPagina()" style="margin-top: 15px; padding: 10px 20px; font-size: 16px;">Cerrar página</button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore-compat.js"></script>
+<script type="module" src="app.js"></script>
+<script>
+  function cerrarPagina() {
+    window.close(); // Funciona solo si la página fue abierta por JavaScript
+    // Alternativa si no se puede cerrar:
+    window.location.href = "https://www.google.com"; // o cualquier otra página
+  }
+</script>
+</body>
+</html>
