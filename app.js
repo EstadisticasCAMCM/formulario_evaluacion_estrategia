@@ -132,13 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     turnoSelect.addEventListener('change', () => {
-        const modalidad = modalidadSelect.value;
-        const turno = turnoSelect.value;
-        tallerSelect.value = "";
-        bloque1.style.display = 'none';
+    const modalidad = modalidadSelect.value;
+    const turno = turnoSelect.value;
+    tallerSelect.value = "";
+    bloque1.style.display = 'none';
 
         if (modalidad && turno) {
-            const opciones = talleres[modalidad][turno] || [];
+        // Asegurarse de que la modalidad y el turno existan en el objeto talleres
+        if (talleres[modalidad] && talleres[modalidad][turno]) {
+            const opciones = talleres[modalidad][turno];
             tallerSelect.innerHTML = '<option value="">Seleccione un taller</option>';
             opciones.forEach(taller => {
                 const option = document.createElement('option');
@@ -146,14 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.textContent = taller.nombre;
                 tallerSelect.appendChild(option);
             });
-
             bloqueTaller.classList.remove('oculto');
             tallerSelect.focus();
         } else {
+            // Si la combinación no existe, ocultar el select y manejar el error
             bloqueTaller.classList.add('oculto');
+            alert('No se encontraron talleres para la modalidad y turno seleccionados.');
         }
-        btnSiguiente.style.display = 'none';
-    });
+    } else {
+        bloqueTaller.classList.add('oculto');
+    }
+    btnSiguiente.style.display = 'none';
+});
 
     tallerSelect.addEventListener('change', () => {
         if (tallerSelect.value) {
