@@ -3,12 +3,12 @@
 // 1. Configuración de Firebase
 // *** REEMPLAZA LOS VALORES DE ESTE OBJETO CON LOS QUE OBTUVISTE DE LA CONSOLA DE FIREBASE ***
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_PROJECT_ID.firebaseapp.com",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_PROJECT_ID.appspot.com",
-  messagingSenderId: "TU_MESSAGING_SENDER_ID",
-  appId: "TU_APP_ID"
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_PROJECT_ID.firebaseapp.com",
+    projectId: "TU_PROJECT_ID",
+    storageBucket: "TU_PROJECT_ID.appspot.com",
+    messagingSenderId: "TU_MESSAGING_SENDER_ID",
+    appId: "TU_APP_ID"
 };
 
 // Inicializa Firebase
@@ -40,16 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const bloqueFinal = document.getElementById('bloque-final');
     const bloque1 = document.getElementById('bloque-1');
     const bloqueSeleccion = document.querySelector('.bloque-seleccion');
-
     const formulario = document.getElementById('evaluacion-form');
     const mensajeConfirmacion = document.getElementById('mensaje-confirmacion');
-
     const modalidadSelect = document.getElementById('modalidad');
     const turnoSelect = document.getElementById('turno');
     const tallerSelect = document.getElementById('taller');
     const bloqueTurno = document.getElementById('bloque-turno');
     const bloqueTaller = document.getElementById('bloque-taller');
-
     let indiceActual = 0;
 
     const talleres = {
@@ -89,14 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function mostrarBloque(indice) {
         bloques.forEach((bloque, i) => {
-            bloque.style.display = 'none';
+            bloque.style.display = (i === indice) ? 'block' : 'none';
         });
+
         if (bloques[indice]) {
-            bloques[indice].style.display = 'block';
-        }
-        btnSiguiente.style.display = 'none';
-        if (bloques[indice] && verificarRespuestas(bloques[indice])) {
-             btnSiguiente.style.display = 'inline-block';
+            btnSiguiente.style.display = verificarRespuestas(bloques[indice]) ? 'inline-block' : 'none';
         }
     }
 
@@ -115,14 +109,36 @@ document.addEventListener('DOMContentLoaded', () => {
         return contestadas.size === nombres.size;
     }
 
-    modalidadSelect.addEventListener('change', () => {
+    // --- Lógica mejorada para la selección de modalidad, turno y taller ---
+    function actualizarTallerSelect() {
         const modalidad = modalidadSelect.value;
+        const turno = turnoSelect.value;
+        
+        // Verifica que ambos valores existan antes de acceder al objeto
+        if (modalidad && turno && talleres[modalidad] && talleres[modalidad][turno]) {
+            const opciones = talleres[modalidad][turno];
+            tallerSelect.innerHTML = '<option value="">Seleccione un taller</option>';
+            opciones.forEach(taller => {
+                const option = document.createElement('option');
+                option.value = taller.clave;
+                option.textContent = taller.nombre;
+                tallerSelect.appendChild(option);
+            });
+            bloqueTaller.classList.remove('oculto');
+            tallerSelect.focus();
+        } else {
+            tallerSelect.innerHTML = '<option value="">Seleccione un taller</option>';
+            bloqueTaller.classList.add('oculto');
+        }
+    }
+
+    modalidadSelect.addEventListener('change', () => {
         turnoSelect.value = "";
         tallerSelect.value = "";
         bloqueTaller.classList.add('oculto');
         bloque1.style.display = 'none';
 
-        if (modalidad) {
+        if (modalidadSelect.value) {
             bloqueTurno.classList.remove('oculto');
             turnoSelect.focus();
         } else {
@@ -132,27 +148,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     turnoSelect.addEventListener('change', () => {
-        const modalidad = modalidadSelect.value;
-        const turno = turnoSelect.value;
         tallerSelect.value = "";
         bloque1.style.display = 'none';
-
-        if (modalidad && turno) {
-            const opciones = talleres[modalidad][turno] || [];
-            tallerSelect.innerHTML = '<option value="">Seleccione un taller</option>';
-            opciones.forEach(taller => {
-                const option = document.createElement('option');
-                option.value = taller.clave;
-                option.textContent = taller.nombre;
-                tallerSelect.appendChild(option);
-            });
-
-            bloqueTaller.classList.remove('oculto');
-            tallerSelect.focus();
-        } else {
-            bloqueTaller.classList.add('oculto');
-        }
+        actualizarTallerSelect();
         btnSiguiente.style.display = 'none';
+    });
+
+    tallerSelect.addEventListener('change', () => {
+        if (tallerSelect.value) {
+            bloqueSeleccion.style.display = 'none';
+            bloque1.style.display = 'block';
+            indiceActual = 0;
+            mostrarBloque(indiceActual);
+        } else {
+            bloque1.style.display = 'none';
+            btnSiguiente.style.display = 'none';
+        }
     });
 
     // Delegación de eventos para los radio buttons
@@ -189,16 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // 1. Recolectar todos los datos del formulario
         const datosFormulario = {};
-
-        // Recolectar valores de los selects
         datosFormulario.modalidad = modalidadSelect.value;
         datosFormulario.turno = turnoSelect.value;
         datosFormulario.taller = tallerSelect.value;
 
-        // Recolectar valores de los radio buttons
-        // Este es el paso más crucial, asegurando que los "name" coincidan
         const radioGroups = [
             'interaccion-grupo', 'dominio-contenido', 'claridad-tema',
             'presentacion-propositos', 'cumplimiento-programa', 'resolver-dudas',
@@ -212,28 +218,20 @@ document.addEventListener('DOMContentLoaded', () => {
             datosFormulario[name.replace(/-/g, '')] = checkedRadio ? checkedRadio.value : null;
         });
         
-        // Recolectar valores de los textareas
         datosFormulario.comentario1 = document.getElementById('comentario1').value;
         datosFormulario.comentario2 = document.getElementById('comentario2').value;
         datosFormulario.comentario3 = document.getElementById('comentario3').value;
 
-        console.log("Datos a enviar:", datosFormulario); // Para depuración
+        console.log("Datos a enviar:", datosFormulario);
 
-        // 2. Enviar los datos a Firebase
         const exito = await guardarDatosFormulario(datosFormulario);
 
         if (exito) {
             formulario.style.display = 'none';
             mensajeConfirmacion.style.display = 'block';
-        } else {
-            // El error ya se maneja dentro de guardarDatosFormulario
         }
     });
 
-    // Oculta el bloque de evaluación y el botón siguiente al cargar la página
     bloque1.style.display = 'none';
     btnSiguiente.style.display = 'none';
 });
-
-// Nota: La función cerrarPagina() está en tu HTML, lo cual está bien.
-// Si deseas tener todo en app.js, podrías moverla aquí.
