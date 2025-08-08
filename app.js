@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'interaccion-grupo', 'dominio-contenido', 'claridad-tema',
             'presentacion-propositos', 'cumplimiento-programa', 'resolver-dudas',
             'estrategias-pedagogicas', 'conduccion-estrategia', 'evaluacion-estrategia',
-            'recursos-utilizados', 'participacion-grupal', 'relevancia-informacion',
+            'recursos-utilizados', 'participacion-grupal', 'relevancia-formacion',
             'expectativas-cumplidas', 'conocimiento-incrementado', 'actitudes-modificadas'
         ];
         
