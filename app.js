@@ -3,12 +3,13 @@
 // 1. Configuración de Firebase
 // *** REEMPLAZA LOS VALORES DE ESTE OBJETO CON LOS QUE OBTUVISTE DE LA CONSOLA DE FIREBASE ***
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROJECT_ID.firebaseapp.com",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_PROJECT_ID.appspot.com",
-    messagingSenderId: "TU_MESSAGING_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyC6Kz_4V2GSQi_obosfZkEUL2jAkPg40CM",
+  authDomain: "formularios-4e228.firebaseapp.com",
+  projectId: "formularios-4e228",
+  storageBucket: "formularios-4e228.firebasestorage.app",
+  messagingSenderId: "513419933626",
+  appId: "1:513419933626:web:829af57b911aae43544f83",
+  measurementId: "G-7GYSWGPFDR"
 };
 
 // Inicializa Firebase
@@ -109,12 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return contestadas.size === nombres.size;
     }
 
-    // --- Lógica mejorada para la selección de modalidad, turno y taller ---
     function actualizarTallerSelect() {
         const modalidad = modalidadSelect.value;
         const turno = turnoSelect.value;
         
-        // Verifica que ambos valores existan antes de acceder al objeto
         if (modalidad && turno && talleres[modalidad] && talleres[modalidad][turno]) {
             const opciones = talleres[modalidad][turno];
             tallerSelect.innerHTML = '<option value="">Seleccione un taller</option>';
@@ -166,7 +165,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Delegación de eventos para los radio buttons
     document.getElementById('evaluacion-form').addEventListener('input', (event) => {
         if (event.target.tagName === 'INPUT' && event.target.type === 'radio') {
             const bloqueActual = bloques[indiceActual];
@@ -196,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // *** LÓGICA DE ENVÍO DE DATOS A FIREBASE AQUÍ ***
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
